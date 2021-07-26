@@ -30,8 +30,6 @@ class PostTypeModule extends AbstractModule
                 if ($value === false) {
                     return $this->unregisterPostType($key);
                 }
-
-                return $this->modifyPostType($key, $value);
             }
 
             return register_extended_post_type(
@@ -62,26 +60,6 @@ class PostTypeModule extends AbstractModule
     protected function hasPostType($name)
     {
         return post_type_exists($name);
-    }
-
-    /**
-     * Modifiy an existing post type.
-     *
-     * @param  string $name
-     * @param  array  $config
-     * @return void
-     */
-    protected function modifyPostType($name, $config)
-    {
-        $object = get_post_type_object($name);
-
-        if (! $this->isPostType($object)) {
-            return;
-        }
-
-        foreach ($config as $key => $value) {
-            $object->{$key} = $value;
-        }
     }
 
     /**
